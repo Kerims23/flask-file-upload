@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Flask Upload Files</h1>
+    {% block body %}
+    <body class="body">
+        
+        {% for file in files %}
+        <img src="{{file}}" alt="{{file}}">
+        {% endfor %}
+
+        <div class="container" align="left">
+           <a href="/static/files/image.jpg" target="blank"><button class='btn btn-default'>Download!</button></a>
+        </div>
+    </body>
+    {% endblock %}
+
+
+    <form method='POST' enctype='multipart/form-data'>
+        {{form.hidden_tag()}}
+        {{form.file()}}
+        {{form.submit()}}
+    </form>
+</body>
+</html>
+
+

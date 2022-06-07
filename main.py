@@ -1,9 +1,11 @@
+from importlib.metadata import files
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
 import os
 from wtforms.validators import InputRequired
+#in terminal install 
 #pip install flask 
 #pip install flask_wtf wtforms
 
@@ -18,6 +20,7 @@ class UploadFileForm(FlaskForm):
 
 @app.route('/', methods=['GET',"POST"])
 @app.route('/home', methods=['GET',"POST"])
+
 def home():
     form = UploadFileForm()
     if form.validate_on_submit():
@@ -25,10 +28,11 @@ def home():
         # First grab the file
         file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(file.filename))) 
         # Then save the file
-        return "File has been uploaded."
+        return render_template('downloads.html', form=form)
         # Need to add display file as next step
     return render_template('index.html', form=form)
-    # this should upload it into templates folder on your computer
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

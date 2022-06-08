@@ -1,5 +1,7 @@
 from importlib.metadata import files
-from flask import Flask, render_template
+from pdb import post_mortem
+from pickle import GET
+from flask import Flask, render_template, Blueprint, request
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
@@ -14,12 +16,31 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
 app.config['UPLOAD_FOLDER'] = 'static/files'
 
+
+
 class UploadFileForm(FlaskForm):
     file = FileField("File", validators=[InputRequired()])
     submit = SubmitField("Upload File")
 
+
+static = Blueprint('static',__name__, template_folder='static')
+
+
 @app.route('/', methods=['GET',"POST"])
+
 @app.route('/home', methods=['GET',"POST"])
+
+# @static.route('/static/files')
+# def static_list():
+#     q = request.args.get('q')
+
+#     if q:
+#         static = files.query.filter(files.title.contains(q) | files.body.contains(q))
+#     else:
+#         static = files.query.all()
+#     return render_template('static/static.html', static=static)
+
+
 
 def home():
     form = UploadFileForm()
